@@ -43,3 +43,5 @@ def listevents():
     eventList = connection.fetchall()
     return render_template("eventlist.html", eventlist = eventList)
 
+if __name__ == '__main__':
+    app.run()
