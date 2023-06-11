@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">        
+    <a href="/member" class="btn btn-primary" role="button">New Member</a>    
+    <h2>Member List</h2>
+    {% if isAdmin == true : %}
+    <form class="d-flex" method="GET" action="/admin">
+      <input class="form-control me-2" type="text" name="member_query" placeholder="Search">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    {% endif %}
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Member ID</th>        
+                <th>Team Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>City</th>
+                <th>Birthdate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in memberlist %}   
+            {% if loop.index%2 == 0:  %}
+            <tr class="table-primary">                                    
+            {% else %}
+            <tr class="table-secondary">                                    
+            {% endif %}
+                <td>{{member.MemberID}}</td>
+                <td>{{member.TeamName}}</td>    
+                <td><a href="/{{member.MemberID}}/event">{{member.FirstName}}</a></td>    
+                <td>{{member.LastName}}</td>    
+                <td>{{member.City}}</td>    
+                <td>{{member.Birthdate}}</td>  
+                <td><a href="/member?id={{member.MemberID}}">Edit</a></td>                                               
+            </tr>                           
+            {% endfor %}
+        </tbody>              
+    </table>
+</div>
+
+<div class="container mt-3">
+    <a href="/event" class="btn btn-primary" role="button">New Event</a>    
+    <h2>Events List</h2>   
+    {% if isAdmin == true : %}
+    <form class="d-flex" method="GET" action="/admin">
+      <input class="form-control me-2" type="text" name="event_query" placeholder="Search">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    {% endif %}    
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Event ID</th>        
+                <th>Event Name</th>                                
+                <th>Sport</th>
+                <th>NZTeam</th>
+                {% if isAdmin == true : %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in eventlist %}                  
+            {% if loop.index%2 == 0:  %}
+            <tr class="table-primary">                                    
+            {% else %}
+            <tr class="table-secondary">                                    
+            {% endif %}
+                <td>{{event.EventID}}</td>
+                <td>{{event.EventName}}</td>    
+                <td>{{event.Sport}}</td>    
+                <td>{{event.TeamName}}</td>   
+                {% if isAdmin == true : %}                                 
+                <td><a href="/event?id={{event.EventID}}">Edit</a> | <a href="/stages?eventId={{event.EventID}}">Stages</a></td>
+                {% endif %}
+            </tr>                           
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
+{% endblock %}

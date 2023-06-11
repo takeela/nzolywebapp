@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">
+    <h2>Stages of {{event.EventName}}</h2>   
+    <a href="/stage?eventId={{event.EventID}}" class="btn btn-primary" role="button">New Stage</a>           
+    <table class="table">
+        <thead class="table-success">
+            <tr>                                       
+                <th>Stage Name</th>
+                <th>Location</th>                
+                <th>StageDate</th>  
+                <th>IsQualifying</th>  
+                <th>PointsToQualify</th>   
+                <th>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages %}
+            {% if loop.index%2 == 0:  %}
+            <tr class="table-primary">                                    
+            {% else %}
+            <tr class="table-secondary">                                    
+            {% endif %}                                
+                <td>{{stage.StageName}}</td>    
+                <td>{{stage.Location}}</td>                                                               
+                <td>{{stage.StageDate}}</td>   
+                {% if stage.Qualifying == 1: %}                                                            
+                <td>Y</td>  
+                {% else %}
+                <td>N</td>
+                {% endif %}                                
+                <td>{{stage.PointsToQualify}}</td>      
+                <td><a href="/stage?id={{stage.StageID}}&eventId={{event.EventID}}">Edit</a> | <a href="/listresults?id={{stage.StageID}}">Result</a></td>                                                          
+            </tr>                           
+            {% endfor %}
+        </tbody>        
+    </table>               
+</div>
+{% endblock %}

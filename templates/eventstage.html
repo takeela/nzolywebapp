@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <div class="container mt-3">
+        {% if stage is not none: %}
+        <form action="/stage/{{stage.StageID}}" method="POST">  
+           <input type="hidden" name="eventId" value="{{eventId}}" />
+            <div class="mb-3 mt-3">
+              <label for="stageName" class="form-label">Stage Name:</label>
+              <input value="{{stage.StageName}}" type="text" class="form-control" id="stageName" placeholder="Stage Name" name="stageName">
+            </div>
+            <div class="mb-3">
+              <label for="location" class="form-label">Location:</label>
+              <input value="{{stage.Location}}" type="text" class="form-control" id="location" placeholder="Location" name="location">
+            </div>
+            <div class="mb-3">
+              <label for="stageDate" class="form-label">Stage Date:</label>
+              <input value="{{stage.StageDate}}" type="text" class="form-control" id="stageDate" placeholder="Stage Date" name="stageDate">
+            </div> 
+            <div class="mb-3">                
+              {% if stage.Qualifying == 1: %}
+              <input class="form-check-input" checked type="checkbox" value="1" id="qualifying" name="qualifying">              
+              {% else %}
+              <input class="form-check-input" type="checkbox" value="1" id="qualifying" name="qualifying">              
+              {% endif %}
+              <label class="form-check-label" for="qualifying">
+                  Qualifying
+              </label>               
+            </div>         
+            <div class="mb-3">
+              <label for="pointsToQualify" class="form-label">Points To Qualify:</label>
+              <input value="{{stage.PointsToQualify}}" type="text" class="form-control" id="pointsToQualify" placeholder="Points To Qualify" name="pointsToQualify">
+            </div> 
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        <form action="/stage" method="POST">  
+          <input type="hidden" name="eventId" value="{{eventId}}" />          
+          <div class="mb-3 mt-3">
+            <label for="stageName" class="form-label">Stage Name:</label>
+            <input type="text" class="form-control" id="stageName" placeholder="Stage Name" name="stageName">
+          </div>
+          <div class="mb-3">
+            <label for="location" class="form-label">Location:</label>
+            <input type="text" class="form-control" id="location" placeholder="Location" name="location">
+          </div>
+          <div class="mb-3">
+            <label for="stageDate" class="form-label">Stage Date:</label>
+            <input type="text" class="form-control" id="stageDate" placeholder="Stage Date" name="stageDate">
+          </div> 
+          <div class="mb-3">                           
+            <input class="form-check-input" type="checkbox" value="1" id="qualifying" name="qualifying">                          
+            <label class="form-check-label" for="qualifying">
+                Qualifying
+            </label>               
+          </div>         
+          <div class="mb-3">
+            <label for="pointsToQualify" class="form-label">Points To Qualify:</label>
+            <input type="text" class="form-control" id="pointsToQualify" placeholder="Points To Qualify" name="pointsToQualify">
+          </div> 
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% endif %}
+    </div>        
+</div>
+{% endblock %}

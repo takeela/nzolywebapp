@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-3">
+    <div class="container mt-3">
+        {% if event is not none: %}
+        <form action="/event/{{event.EventID}}" method="POST">            
+            <div class="mb-3 mt-3">
+              <label for="eventName" class="form-label">Event Name:</label>
+              <input value="{{event.EventName}}" type="text" class="form-control" id="eventName" placeholder="Event Name" name="eventName">
+            </div>
+            <div class="mb-3">
+              <label for="sport" class="form-label">Sport:</label>
+              <input value="{{event.Sport}}" type="text" class="form-control" id="sport" placeholder="Sport Name" name="sport">
+            </div> 
+            <div class="mb-3">
+                <label for="teamId" class="form-label">NZ Team:</label>
+                <select class="form-select" name="nzTeam" id="nzTeam">
+                    {% for team in teams %}   
+                    {% if event.NZTeam == team.TeamID : %} 
+                    <option selected value="{{team.TeamID}}">{{team.TeamName}}</option>
+                    {% else %}
+                    <option value="{{team.TeamID}}">{{team.TeamName}}</option>
+                    {% endif %}                     
+                    {% endfor %}            
+                </select>
+            </div>            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        <form action="/event" method="POST">            
+            <div class="mb-3 mt-3">
+              <label for="eventName" class="form-label">Event Name:</label>
+              <input type="text" class="form-control" id="eventName" placeholder="Event Name" name="eventName">
+            </div>
+            <div class="mb-3">
+              <label for="sport" class="form-label">Sport:</label>
+              <input type="text" class="form-control" id="sport" placeholder="Sport Name" name="sport">
+            </div> 
+            <div class="mb-3">
+                <label for="teamId" class="form-label">NZ Team:</label>
+                <select class="form-select" name="nzTeam" id="nzTeam">
+                    {% for team in teams %}                                                                 
+                    <option value="{{team.TeamID}}">{{team.TeamName}}</option>                        
+                    {% endfor %}            
+                </select>
+            </div>            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% endif %}
+    </div>        
+</div>
+{% endblock %}

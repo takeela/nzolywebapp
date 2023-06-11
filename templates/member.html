@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">
+    {% if member is not none: %}
+    <form action="/member/{{memberId}}" method="POST">        
+        <div class="mb-3 mt-3">
+          <label for="firstName" class="form-label">First Name:</label>
+          <input value="{{member.FirstName}}" type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName">
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name:</label>
+          <input value="{{member.LastName}}" type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="teamId" class="form-label">NZ Team:</label>
+            <select class="form-select" name="teamId" id="teamId">
+                {% for team in teams %}                 
+                    {% if team.TeamID == member.TeamID : %} 
+                    <option selected value="{{team.TeamID}}">{{team.TeamName}}</option>
+                    {% else %}
+                    <option value="{{team.TeamID}}">{{team.TeamName}}</option>
+                    {% endif %}
+                {% endfor %}            
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City:</label>
+            <input value="{{member.City}}" type="text" class="form-control" id="city" placeholder="City" name="city">
+        </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">DOB:</label>
+            <input value="{{member.Birthdate}}" type="text" class="form-control" id="dob" placeholder="DOB" name="dob">
+        </div>        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% else %}
+      <form action="/member" method="POST">        
+        <div class="mb-3 mt-3">
+          <label for="firstName" class="form-label">First Name:</label>
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName">
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name:</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="teamId" class="form-label">NZ Team:</label>
+            <select class="form-select" name="teamId" id="teamId">
+                {% for team in teams %} 
+                <option value="{{team.TeamID}}">{{team.TeamName}}</option>
+                {% endfor %}            
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City:</label>
+            <input type="text" class="form-control" id="city" placeholder="City" name="city">
+        </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">DOB:</label>
+            <input type="text" class="form-control" id="dob" placeholder="DOB" name="dob">
+        </div>        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% endif %}
+</div>
+{% endblock %}

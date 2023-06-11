@@ -1,7 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- code in here to display a list of events -->
-<!-- eventlist is the variable passed in containing list of loans -->
-
-
+<div class="container mt-3">
+    <h2>Events List</h2>       
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Event ID</th>        
+                <th>Event Name</th>                                
+                <th>Sport</th>
+                <th>NZTeam</th>             
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in eventlist %}                  
+            {% if loop.index%2 == 0:  %}
+            <tr class="table-primary">                                    
+            {% else %}
+            <tr class="table-secondary">                                    
+            {% endif %}
+                <td>{{event.EventID}}</td>
+                <td>{{event.EventName}}</td>    
+                <td>{{event.Sport}}</td>    
+                <td>{{event.TeamName}}</td>               
+            </tr>                           
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
 {% endblock %}

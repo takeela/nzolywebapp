@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">
+    <h2>{{stage.StageName}}</h2>
+    {% if result is not none: %}
+      <form action="/result/{{resultId}}" method="POST">  
+        <input type="hidden" value="{{stageId}}" name="stageId" />          
+        <div class="mb-3 mt-3">
+          <label for="points" class="form-label">Points:</label>
+          <input value="{{result.PointsScored}}" type="text" class="form-control" id="points" placeholder="Points" name="points">
+        </div>        
+        <div class="mb-3">
+            <label for="memberId" class="form-label">Member:</label>
+            <select class="form-select" name="memberId" id="memberId">
+                {% for member in members %}                 
+                    {% if result.MemberID == member.MemberID : %} 
+                    <option selected value="{{member.MemberID}}">{{member.FirstName}} {{member.LastName}}</option>
+                    {% else %}
+                    <option value="{{member.MemberID}}">{{member.FirstName}} {{member.LastName}}</option>
+                    {% endif %}
+                {% endfor %}            
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="position" class="form-label">Position:</label>
+            {% if stage.StageName == 'Final' :%}
+            <select class="form-select" name="position" id="position"> 
+            {% else %}
+            <select class="form-select" name="position" id="position" disabled> 
+            {% endif %}
+                <option value=""></option>  
+                {% if result.Position == 1: %}                
+                <option selected value="1">Gold</option>               
+                {% else  %} 
+                <option value="1">Gold</option>
+                {% endif %}  
+                {% if result.Position == 2: %}              
+                <option value="2">Silver</option>                                
+                {% else %} 
+                <option value="2">Silver</option>
+                {% endif %}
+                {% if result.Position == 3: %}  
+                <option selected value="3">Bronze</option>                                
+                {% else %} 
+                <option value="3">Bronze</option>
+                {% endif %}
+            </select>
+        </div>            
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% else %}
+      <form action="/result" method="POST"> 
+        <input type="hidden" value="{{stageId}}" name="stageId" />            
+        <div class="mb-3 mt-3">
+          <label for="points" class="form-label">Points:</label>
+          <input type="text" class="form-control" id="points" placeholder="Points" name="points">
+        </div>       
+        <div class="mb-3">
+            <label for="memberId" class="form-label">Member:</label>
+            <select class="form-select" name="memberId" id="memberId">
+                {% for member in members %}                                                     
+                <option value="{{member.MemberID}}">{{member.FirstName}} {{member.LastName}}</option>                  
+                {% endfor %}            
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="position" class="form-label">Position:</label>
+            {% if stage.StageName == 'Final' :%}
+            <select class="form-select" name="position" id="position">  
+            {% else %}
+            <select disabled class="form-select" name="position" id="position"> 
+            {% endif %} 
+                <option value=""></option>                               
+                <option value="1">Gold</option>                
+                <option value="2">Silver</option>                                
+                <option value="3">Bronze</option>                                
+            </select>
+        </div>            
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% endif %}
+</div>
+{% endblock %}

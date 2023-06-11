@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">
+    <h2>Events for {{ member.FirstName}} {{member.LastName}}</h2> 
+    <h3>Upcoming Events & Stages</h3>
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Event ID</th>  
+                <th>Stage</th>                        
+                <th>Event Name</th>                                
+                <th>Sport</th>
+                <th>NZTeam</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in upcomingEvents %}                  
+            <tr class="table-primary">                                    
+                <td>{{result.EventID}}</td>
+                <td>{{result.StageName}}</td>
+                <td>{{result.EventName}}</td>    
+                <td>{{result.Sport}}</td>    
+                <td>{{result.TeamName}}</td>                                                                                   
+            </tr>                           
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Previous Results</h3>
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Event ID</th>  
+                <th>Stage</th>                        
+                <th>Event Name</th>                                
+                <th>Sport</th>
+                <th>Result</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in previousResults %}                  
+            <tr class="table-primary">                                    
+                <td>{{result.EventID}}</td>
+                <td>{{result.StageName}}</td>
+                <td>{{result.EventName}}</td>    
+                <td>{{result.Sport}}</td> 
+                {% if result.Position == 1: %}   
+                <td>Gold</td> 
+                {% elif result.Position == 2: %}   
+                <td>Silver</td> 
+                {% elif result.Position == 3: %}   
+                <td>Bronze</td> 
+                {% elif result.Qualifying == 1: %}   
+                <td>Q</td> 
+                {% else %}
+                <td></td> 
+                {% endif %}                                                                                 
+            </tr>                           
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
+{% endblock %}

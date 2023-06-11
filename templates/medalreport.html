@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- code in here to display a list of books-->
+<div class="container mt-3">
+    <h2>Medal Report</h2>    
+    <table class="table">
+        <thead class="table-success">
+            <tr>
+                <th>Event Name</th>        
+                <th>Medal</th>                                                        
+                <th>First Name</th>
+                <th>Last Name</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}   
+            {% if loop.index%2 == 0:  %}
+            <tr class="table-primary">                                    
+            {% else %}
+            <tr class="table-secondary">                                    
+            {% endif %}
+                <td>{{report.EventName}}</td>
+                {% if report.Position == 1: %}   
+                <td>Gold</td> 
+                {% elif report.Position == 2: %}   
+                <td>Silver</td> 
+                {% elif report.Position == 3: %}   
+                <td>Bronze</td> 
+                {% endif %}                     
+                <td>{{report.FirstName}}</td>    
+                <td>{{report.LastName}}</td>                                                               
+            </tr>                           
+            {% endfor %}
+        </tbody>        
+    </table>
+</div>
+{% endblock %}
